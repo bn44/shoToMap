@@ -24,6 +24,7 @@ a {
     }
 
 #map {
+    clear: both;
     width: 100%;
     height: 500px;
     margin: 0px auto 0px auto;
@@ -32,7 +33,8 @@ a {
     box-shadow: 2px 5px 20px*/
     }
   
-#wraper {
+#wraper2 {
+    clear: both;
     margin-top: 20px;
     width: 90%;
     height: 100px;
@@ -40,24 +42,32 @@ a {
     overflow: scroll
     }
     
+#wraper1{
+  clear: both;
+}
   p{
     
   }
   
-  #device{
-    color: red;
-     margin: 0px auto 0px auto;
-     text-align: center;
-  }
-  #ImageWraper{
-     text-align: center;
-  }
-  #tipImage{
-     height: 7em;
-     width: 7em;
-     margin: 0px auto 0px auto;
-    
-  }
+#device{
+  color: red;
+   margin: 0px auto 0px auto;
+   text-align: center;
+}
+#ImageWraper{
+   text-align: center;
+}
+#tipImage{
+   height: 7em;
+   width: 7em;
+   margin: 0px auto 0px auto;
+  
+}
+  
+#show-picture{
+  height: 7em;
+  width: 7em;
+}
   
   #when{
      margin: 0px auto 0px auto;

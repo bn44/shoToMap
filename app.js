@@ -144,7 +144,10 @@ watchr.watch({
 			     console.log(image.gps[1].value[0]);
 			     console.log("-------------------------------");
 			     
+			     
+			     
                              /////// finding the right long and latitude with refereces ////
+			     
 			     var longRef = image.gps[2].value;
 			     var longNum = image.gps[3].value[0];
 			     if (longRef == 'W') {
