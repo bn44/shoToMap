@@ -6,24 +6,11 @@ block content
   script(src='javascripts/chatSocket.js')
   script(src='javascripts/mapSocket.js')
    
-     
+   
     
-  
-  #wraper1
- 
-  
- 
-    input#take-picture(type='file', accept='image/*')
-    h2 Preview:
-    p
-      img#show-picture(src='about:blank', alt='')
-      p#error
-  script(src='javascripts/base.js')
-  
-  #wraper2
-       
-    ul#notes
-    hr
-    ul#messages
-    input#chatmsg(type='text')
-    hr
+  form(method='post', enctype='multipart/form-data', action='/file-upload') 
+    input(type='file', name='thumbnail' , accept='image/*')
+    input(type='submit')
+
+    
+    

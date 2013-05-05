@@ -8,7 +8,6 @@ var express = require('express')
   , user = require('./routes/user')
   , http = require('http')
   , path = require('path');
-
 var watchr = require('watchr');
 var fs = require('fs');
 var sio = require('socket.io');
@@ -17,25 +16,48 @@ var sio = require('socket.io');
 
     
 var app = express();
-
 var server = http.createServer(app);
-
-
 // attaching the socket.io
 io = sio.listen(server);
-
 // all environments
 app.set('port', process.env.PORT || 3698);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(express.favicon());
 app.use(express.logger('dev'));
+//app.use(express.bodyParser({uploadDir: __dirname + '/public/tmp'}));
 app.use(express.bodyParser());
+
 app.use(express.methodOverride());
-  app.use(express.cookieParser('your secret here'));
-  app.use(express.session());
+app.use(express.cookieParser('your secret here'));
+app.use(express.session());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.post('/file-upload', function(req, res, next) {
+    console.log('<><><><><><><><><>');
+    console.log(req.body);
+    console.log(req.files);
+    console.log('<><><><><><><><><>');
+    
+    res.render('index', { title: 'ShoToMaccccp' });
+    // get the temporary location of the file
+    var tmp_path = req.files.thumbnail.path;
+    // set where the file should actually exists - in this case it is in the "images" directory
+    var target_path = './public/watched/' + req.files.thumbnail.name;
+    // move the file from the temporary location to the intended location
+    fs.rename(tmp_path, target_path, function(err) {
+        if (err)
+	app.get('/', routes.index);
+        // delete the temporary file, so that the explicitly set temporary upload dir does not get filled with unwanted files
+        fs.unlink(tmp_path, function() {
+            if (err)
+	    app.get('/', routes.index);
+            //res.send('File uploaded to: ' + target_path + ' - ' + req.files.thumbnail.size + ' bytes');
+        });
+    });
+    app.get('/', routes.index);
+  });
 
 // development only
 if ('development' == app.get('env')) {
@@ -49,9 +71,6 @@ server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
 
-
-
-
 //to keep track of the masseges on the chat
 var messages = [];
 //to transport the images information!
@@ -61,7 +80,6 @@ var pointsJson=JSON.stringify(points);
     // Define a message handler
     io.sockets.on('connection', function (socket) {
       io.sockets.emit('map',points); 
-	
       socket.on('message', function (msg) {
           console.log('Received: ', msg);
           messages.push(msg);
@@ -81,8 +99,7 @@ var pointsJson=JSON.stringify(points);
           socket.send(points);
       });
 	
-    });  
-				
+    });
     function Report(notes) {
 	io.sockets.emit('notes', notes);
     };
@@ -194,15 +211,10 @@ watchr.watch({
 			     console.log("-------------------------------");
  
 			    }		     
-		      });
-		     
-			    
-		     
-		     
-		     
+			});   
 		 } catch (error) {
 		     console.log('Error (while extracting location data from the image): ' + error);
-		 }	
+		 }
 
 	    }	
 		

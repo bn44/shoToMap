@@ -1,33 +1,24 @@
 {
   "author": "Bader Nuwisser",
   "name": "shoTOmap",
-  "description":"",
+  "description": "",
   "version": "0.0.1",
   "private": true,
-  
   "repository": {
     "url": ""
   },
-  
-  
   "scripts": {
     "start": "node app.js"
   },
-  
   "dependencies": {
     "express": "~3.2.0",
     "jade": "~0.30.0",
     "socket.io": "*",
-     "watchr": "~2.4.0",
-    "exif": "*"
-    
+    "watchr": "~2.4.0",
+    "exif": "*",
+    "fileupload": "~0.2.4"
   },
-  
-  
-   "devDependencies": {
-
+  "devDependencies": {
     "node-dev": "*"
-    }
-  
-  
+  }
 }
