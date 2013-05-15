@@ -31,6 +31,13 @@ block content
     
   form(method='post', enctype='multipart/form-data', action='/file-upload')
     
+    input#takePicture(type='file', accept='image/*')
+    input(type='submit')
+    
+    
+    ........................
+    
+    form(method='post', enctype='multipart/form-data', action='/file-upload') 
     input(type='file', name='thumbnail' , accept='image/*')
     input(type='submit')
 

@@ -2,15 +2,18 @@ extends layout
 
 block content
   #map
-  
-  script(src='javascripts/chatSocket.js')
+  p sending Images to the map via the Camera API is under development.
+  To test the App place an image to the watched folder.
+  copy images form 'public/testImages/' to 'public/watched/'. Thanks!
   script(src='javascripts/mapSocket.js')
-   
-   
-    
-  form(method='post', enctype='multipart/form-data', action='/file-upload') 
-    input(type='file', name='thumbnail' , accept='image/*')
-    input(type='submit')
-
-    
-    
+  
+  #wraper1
+ 
+  
+ 
+    input#take-picture(method='post', type='file', accept='image/*', action='/file-upload')
+    h2 Preview:
+    p
+      img#show-picture(src='about:blank', alt='')
+      p#error
+  script(src='javascripts/base.js')

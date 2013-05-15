@@ -34,32 +34,30 @@ app.use(express.session());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-
 app.post('/file-upload', function(req, res, next) {
     console.log('<><><><><><><><><>');
     console.log(req.body);
     console.log(req.files);
     console.log('<><><><><><><><><>');
+    
+    res.render('index', { title: 'ShoToMap - file uploaded' });
+    // get the temporary location of the file
+    var tmp_path = req.files.thumbnail.path;
+    // set where the file should actually exists - in this case it is in the "images" directory
+    var target_path = './public/watched/' + req.files.thumbnail.name;
+    // move the file from the temporary location to the intended location
+    fs.rename(tmp_path, target_path, function(err) {
+        if (err)
+	res.render('index', { title: 'ShoToMap - file uploaded' });
+        // delete the temporary file, so that the explicitly set temporary upload dir does not get filled with unwanted files
+        fs.unlink(tmp_path, function() {
+            if (err)
+	    res.render('index', { title: 'ShoToMap - file uploaded' });
+            //res.send('File uploaded to: ' + target_path + ' - ' + req.files.thumbnail.size + ' bytes');
+        });
     });
-    //res.render('index', { title: 'ShoToMap - file uploaded' });
-//    // get the temporary location of the file
-//    var tmp_path = req.files.thumbnail.path;
-//    // set where the file should actually exists - in this case it is in the "images" directory
-//    var target_path = './public/watched/' + req.files.thumbnail.name;
-//    // move the file from the temporary location to the intended location
-//    fs.rename(tmp_path, target_path, function(err) {
-//        if (err)
-//	res.render('index', { title: 'ShoToMap - file uploaded' });
-//        // delete the temporary file, so that the explicitly set temporary upload dir does not get filled with unwanted files
-//        fs.unlink(tmp_path, function() {
-//            if (err)
-//	    res.render('index', { title: 'ShoToMap - file uploaded' });
-//            //res.send('File uploaded to: ' + target_path + ' - ' + req.files.thumbnail.size + ' bytes');
-//        });
-//    });
-//    res.render('index', { title: 'ShoToMap - file uploaded' });
-//  
+    res.render('index', { title: 'ShoToMap - file uploaded' });
+  });
 
 // development only
 if ('development' == app.get('env')) {

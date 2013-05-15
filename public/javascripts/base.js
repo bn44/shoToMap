@@ -3,32 +3,30 @@
 (function () {
     var takePicture = document.querySelector("#take-picture"),
         showPicture = document.querySelector("#show-picture");
-        
-        
+ 
     if (takePicture && showPicture) {
         // Set events
         takePicture.onchange = function (event) {
             // Get a reference to the taken picture or chosen file
             var files = event.target.files,
                 file;
-                
             if (files && files.length > 0) {
                 file = files[0];
-                console.log(file);
                 try {
-                    // Get window.URL object
+                    
                     var URL = window.URL || window.webkitURL;
  
                     // Create ObjectURL
                     var imgURL = URL.createObjectURL(file);
- 
+                    console.log('imgURL -----> '+imgURL);
                     // Set img src to ObjectURL
                     showPicture.src = imgURL;
  
                     // Revoke ObjectURL
                     URL.revokeObjectURL(imgURL);
-                    
-                    
+                        
+                    // Get window.URL object
+                   
                 }
                 catch (e) {
                     try {
@@ -51,5 +49,3 @@
         };
     }
 })();
-
-
